@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K9 Integral Services — Pitch Inversores</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B2A;--navy2:#1A2E42;--navy3:#243B52;--gold:#C8A84B;--gold2:#E8C96B;--gold3:#F5DFA0;--cream:#F7F3EB;--white:#FFFFFF;--muted:rgba(247,243,235,0.55);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:var(--cream);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(13,27,42,0.97),rgba(13,27,42,0.0));backdrop-filter:blur(6px);}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{width:36px;height:36px;object-fit:contain;}
+.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.1em;color:var(--white);text-transform:uppercase;}
+.nav-links{display:flex;gap:1.6rem;}
+.nav-links a{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(200,168,75,0.4);color:var(--gold);padding:0.45rem 1.1rem;border-radius:4px;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:rgba(200,168,75,0.1);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;padding:6rem 2rem 4rem;text-align:center;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(200,168,75,0.13) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(200,168,75,0.07) 0%,transparent 60%),linear-gradient(180deg,#0D1B2A 0%,#0a1520 100%);}
+.grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(200,168,75,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(200,168,75,0.06) 1px,transparent 1px);background-size:60px 60px;}
+.hero-logo{position:relative;z-index:2;width:130px;height:130px;margin-bottom:1.8rem;animation:fadeDown 1s ease both;}
+.hero-logo img{width:100%;height:100%;object-fit:contain;}
+.hero-eyebrow{position:relative;z-index:2;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.3em;font-size:0.7rem;color:var(--gold);text-transform:uppercase;margin-bottom:1.2rem;animation:fadeDown 1s 0.2s ease both;opacity:0;}
+.hero h1{position:relative;z-index:2;font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:900;line-height:1;color:var(--white);animation:fadeDown 1s 0.38s ease both;opacity:0;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero-sub{position:relative;z-index:2;font-size:1.05rem;font-weight:300;color:var(--muted);max-width:580px;margin:1.5rem auto 0;line-height:1.75;animation:fadeDown 1s 0.55s ease both;opacity:0;}
+.hero-divider{position:relative;z-index:2;width:60px;height:2px;background:var(--gold);margin:2rem auto;animation:scaleIn 1s 0.7s ease both;transform:scaleX(0);transform-origin:center;}
+.hero-sectors{position:relative;z-index:2;font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;letter-spacing:0.14em;color:var(--gold3);text-transform:uppercase;font-weight:600;animation:fadeUp 1s 0.88s ease both;opacity:0;}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;animation:bounce 2s 2.5s infinite;}
+.scroll-hint span{font-size:0.62rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;}
+.scroll-arrow{width:18px;height:18px;border-right:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);transform:rotate(45deg);}
+
+/* STATS */
+.stats-bar{background:var(--navy2);border-top:1px solid rgba(200,168,75,0.2);border-bottom:1px solid rgba(200,168,75,0.2);padding:2.5rem 2rem;}
+.stats-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;}
+.stat-item{text-align:center;padding:1.5rem 1rem;border-right:1px solid rgba(200,168,75,0.15);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:0.4rem;}
+.stat-label{font-size:0.75rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+
+section{padding:5rem 2rem;}
+.container{max-width:1100px;margin:0 auto;}
+.section-label{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.25em;font-size:0.68rem;color:var(--gold);text-transform:uppercase;margin-bottom:0.75rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:1rem;}
+.section-title em{color:var(--gold);font-style:normal;}
+.section-body{font-size:1rem;color:var(--muted);line-height:1.8;max-width:680px;}
+
+/* VIDEO */
+.video-section{background:var(--navy);}
+.video-wrap{margin-top:3rem;border-radius:20px;overflow:hidden;border:1px solid rgba(200,168,75,0.2);position:relative;}
+.video-wrap video{width:100%;display:block;max-height:620px;object-fit:cover;}
+
+/* SERVICES */
+.services-section{background:var(--navy2);}
+.services-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem;}
+.big-circle{width:320px;height:320px;border-radius:50%;border:1px solid rgba(200,168,75,0.25);position:relative;display:flex;align-items:center;justify-content:center;margin:0 auto;}
+.big-circle::before{content:'';position:absolute;inset:16px;border-radius:50%;border:1px solid rgba(200,168,75,0.12);}
+.big-circle::after{content:'';position:absolute;inset:32px;border-radius:50%;background:radial-gradient(circle,rgba(200,168,75,0.1),transparent 70%);}
+.circle-logo{width:90px;height:90px;z-index:2;position:relative;}
+.circle-logo img{width:100%;height:100%;object-fit:contain;}
+.orbit-item{position:absolute;width:50px;height:50px;background:var(--navy);border:1px solid rgba(200,168,75,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.15);border-radius:16px;overflow:hidden;}
+.service-card{background:var(--navy2);padding:1.6rem 1.2rem;transition:background 0.3s;}
+.service-card:hover{background:var(--navy3);}
+.service-icon{font-size:1.7rem;margin-bottom:0.9rem;}
+.service-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--white);margin-bottom:0.45rem;}
+.service-desc{font-size:0.76rem;color:var(--muted);line-height:1.6;}
+.service-tag{display:inline-block;margin-top:0.7rem;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,168,75,0.35);padding:2px 7px;border-radius:4px;}
+
+/* DOGS */
+.dogs-section{background:var(--navy);}
+.dogs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:3rem;}
+.dog-card{background:var(--navy2);border:1px solid rgba(200,168,75,0.12);border-radius:16px;overflow:hidden;transition:transform 0.25s;}
+.dog-card:hover{transform:translateY(-5px);}
+.dog-img{width:100%;height:200px;object-fit:cover;object-position:center top;display:block;}
+.dog-info{padding:1.1rem 1.1rem 1.3rem;}
+.dog-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:3px;}
+.dog-role{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.65rem;}
+.dog-desc{font-size:0.76rem;color:var(--muted);line-height:1.6;}
+
+/* TEAM */
+.team-section{background:var(--navy2);}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:3rem;}
+.team-card{background:var(--navy);border:1px solid rgba(200,168,75,0.12);border-radius:16px;overflow:hidden;position:relative;}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.team-img{width:100%;height:220px;object-fit:cover;object-position:center top;display:block;}
+.team-info{padding:1.2rem 1.3rem 1.5rem;}
+.team-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:3px;}
+.team-role{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;}
+.team-desc{font-size:0.78rem;color:var(--muted);line-height:1.6;}
+
+/* DAFO */
+.dafo-section{background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%);}
+.dafo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.15);border-radius:20px;overflow:hidden;margin-top:3rem;}
+.dafo-quadrant{padding:2.5rem 2rem;}
+.dq-fortalezas{background:rgba(100,170,80,0.05);}
+.dq-debilidades{background:rgba(220,60,60,0.05);}
+.dq-oportunidades{background:rgba(55,138,221,0.05);}
+.dq-amenazas{background:rgba(186,117,23,0.05);}
+.dq-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem;}
+.dq-fortalezas .dq-label{color:#7dc25a;} .dq-debilidades .dq-label{color:#e24b4a;}
+.dq-oportunidades .dq-label{color:#378ADD;} .dq-amenazas .dq-label{color:#BA7517;}
+.dq-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--white);margin-bottom:1.2rem;}
+.dq-items{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.dq-items li{font-size:0.8rem;color:var(--muted);line-height:1.5;padding-left:1rem;position:relative;}
+.dq-items li::before{content:'';position:absolute;left:0;top:0.52rem;width:4px;height:4px;border-radius:50%;}
+.dq-fortalezas .dq-items li::before{background:#7dc25a;} .dq-debilidades .dq-items li::before{background:#e24b4a;}
+.dq-oportunidades .dq-items li::before{background:#378ADD;} .dq-amenazas .dq-items li::before{background:#BA7517;}
+.dq-items li strong{color:var(--cream);font-weight:500;}
+
+/* MODELO */
+.model-section{background:var(--navy);}
+.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:3rem;}
+.model-card{background:var(--navy2);border:1px solid rgba(200,168,75,0.12);border-radius:16px;padding:2rem 1.5rem;position:relative;overflow:hidden;}
+.model-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.model-num{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:rgba(200,168,75,0.12);position:absolute;top:1rem;right:1.25rem;line-height:1;}
+.model-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.model-text{font-size:0.83rem;color:var(--muted);line-height:1.7;}
+
+/* FINANCIERO */
+.finance-section{background:var(--navy2);}
+.finance-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:3rem;}
+.finance-table{width:100%;border-collapse:collapse;}
+.finance-table th{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.1em;text-transform:uppercase;font-size:0.68rem;color:var(--gold);padding:0.6rem 0.75rem;border-bottom:1px solid rgba(200,168,75,0.2);text-align:left;}
+.finance-table td{padding:0.7rem 0.75rem;font-size:0.82rem;color:var(--muted);border-bottom:1px solid rgba(255,255,255,0.04);}
+.finance-table td:last-child{color:var(--cream);text-align:right;font-weight:500;}
+.finance-table tr:last-child td{border-bottom:none;color:var(--gold);font-weight:600;}
+.milestones{display:flex;flex-direction:column;gap:0;}
+.milestone{display:flex;gap:1.2rem;align-items:flex-start;padding:1.1rem 0;border-bottom:1px solid rgba(200,168,75,0.1);}
+.milestone:last-child{border-bottom:none;}
+.milestone-dot{width:34px;height:34px;border-radius:50%;background:var(--navy);border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Playfair Display',serif;font-size:0.82rem;font-weight:700;color:var(--gold);}
+.milestone-phase{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.72rem;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;margin-bottom:2px;}
+.milestone-text{font-size:0.8rem;color:var(--muted);line-height:1.5;}
+
+/* REVIEWS */
+.reviews-section{background:var(--navy);}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:3rem;}
+.review-card{background:var(--navy2);border:1px solid rgba(200,168,75,0.12);border-radius:16px;padding:1.75rem 1.5rem;position:relative;}
+.review-card::before{content:'\201C';font-family:'Playfair Display',serif;font-size:5rem;color:rgba(200,168,75,0.15);position:absolute;top:-0.5rem;left:1rem;line-height:1;}
+.review-stars{display:flex;gap:3px;margin-bottom:1rem;}
+.review-stars span{color:var(--gold);font-size:0.9rem;}
+.review-text{font-size:0.85rem;color:var(--cream);line-height:1.75;margin-bottom:1.2rem;font-style:italic;}
+.review-author{display:flex;flex-direction:column;gap:2px;}
+.review-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);}
+.review-org{font-size:0.75rem;color:var(--muted);}
+
+/* PARTNERS */
+.partners-section{background:var(--navy2);}
+.partners-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:3rem;}
+.partners-grid-top{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:3rem;margin-bottom:20px;}
+.partner-card{background:var(--navy);border:1px solid rgba(200,168,75,0.12);border-radius:16px;padding:2rem 1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1rem;transition:background 0.3s;}
+.partner-card:hover{background:var(--navy3);}
+.partner-logo-wrap{width:140px;height:70px;display:flex;align-items:center;justify-content:center;}
+.partner-logo-wrap img{max-width:100%;max-height:100%;object-fit:contain;filter:brightness(0) invert(1);opacity:0.82;}
+.partner-logo-wrap img.keep-color{filter:none;}
+.partner-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.88rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
+.partner-desc{font-size:0.78rem;color:var(--muted);line-height:1.6;}
+.partner-logo-text{width:140px;height:70px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;}
+.partner-logo-text .shield{font-size:2rem;}
+.partner-logo-text .city{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);text-align:center;}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:6rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;border:1px solid rgba(200,168,75,0.08);top:50%;left:50%;transform:translate(-50%,-50%);}
+.cta-section::after{content:'';position:absolute;width:380px;height:380px;border-radius:50%;border:1px solid rgba(200,168,75,0.12);top:50%;left:50%;transform:translate(-50%,-50%);}
+.cta-logo{width:75px;height:75px;margin:0 auto 2rem;position:relative;z-index:2;}
+.cta-logo img{width:100%;height:100%;object-fit:contain;}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;color:var(--white);position:relative;z-index:2;margin-bottom:1rem;}
+.cta-title span{color:var(--gold);}
+.cta-sub{font-size:1rem;color:var(--muted);max-width:500px;margin:0 auto 2.5rem;position:relative;z-index:2;line-height:1.7;}
+.cta-badge{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border:1.5px solid var(--gold);color:var(--gold);padding:0.9rem 2.5rem;border-radius:4px;position:relative;z-index:2;}
+
+/* ANIMATIONS */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes scaleIn{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+@keyframes orbit{from{transform:rotate(0deg) translateX(140px) rotate(0deg);}to{transform:rotate(360deg) translateX(140px) rotate(-360deg);}}
+@keyframes orbitR{from{transform:rotate(0deg) translateX(140px) rotate(0deg);}to{transform:rotate(-360deg) translateX(140px) rotate(360deg);}}
+.orbit-item:nth-child(1){animation:orbit 18s linear infinite;}
+.orbit-item:nth-child(2){animation:orbit 18s 3s linear infinite;}
+.orbit-item:nth-child(3){animation:orbit 18s 6s linear infinite;}
+.orbit-item:nth-child(4){animation:orbitR 22s linear infinite;}
+.orbit-item:nth-child(5){animation:orbitR 22s 5s linear infinite;}
+.orbit-item:nth-child(6){animation:orbitR 22s 9s linear infinite;}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){
+  .stats-grid,.services-grid,.dafo-grid,.model-grid,.finance-grid,.dogs-grid,.team-grid,.partners-grid,.partners-grid-top,.reviews-grid{grid-template-columns:1fr 1fr;}
+  .services-intro{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
+@media(max-width:560px){
+  .stats-grid,.services-grid,.dafo-grid,.model-grid,.finance-grid,.dogs-grid,.team-grid,.partners-grid,.partners-grid-top,.reviews-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="imagenes/logok9integral1.PNG" alt="K9 Integral Services">
+    <span class="nav-brand">K9 Integral Services</span>
+  </div>
+  <div class="nav-links">
+    <a href="#video">Vídeo</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#perros">Perros</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#dafo">DAFO</a>
+    <a href="#reviews">Clientes</a>
+    <a href="#colaboradores">Colaboradores</a>
+  </div>
+  <a href="#contacto" class="nav-cta">Invertir</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <div class="hero-logo">
+    <img src="imagenes/logok9integral1.PNG" alt="K9 Integral Services Logo">
+  </div>
+  <div class="hero-eyebrow">Investment Opportunity — 2025</div>
+  <h1>Huellas que<br><em>protegen</em></h1>
+  <p class="hero-sub">El primer operador español de unidades caninas multidisciplinares formadas íntegramente desde protectoras de animales.</p>
+  <div class="hero-divider"></div>
+  <div class="hero-sectors">Seguridad · Terapia · Reinserción · Rescate</div>
+  <div class="scroll-hint"><span>Descubrir</span><div class="scroll-arrow"></div></div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-grid reveal">
+    <div class="stat-item"><div class="stat-num">400k</div><div class="stat-label">perros abandonados/año en España</div></div>
+    <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">líneas de servicio activas</div></div>
+    <div class="stat-item"><div class="stat-num">4B€</div><div class="stat-label">mercado seguridad privada</div></div>
+    <div class="stat-item"><div class="stat-num">2x</div><div class="stat-label">impacto: negocio + sociedad</div></div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<section class="video-section" id="video">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Presentación corporativa</div>
+      <h2 class="section-title">Conoce <em>K9 Integral Services</em></h2>
+      <p class="section-body">Descubre en primera persona nuestra metodología, nuestro equipo y el impacto real que generamos en cada uno de los servicios que prestamos.</p>
+    </div>
+    <div class="video-wrap reveal">
+      <video controls poster="">
+        <source src="imagenes/K9_integral_services.mp4" type="video/mp4">
+        Tu navegador no soporta la reproducción de vídeo.
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="services-section" id="servicios">
+  <div class="container">
+    <div class="services-intro reveal">
+      <div>
+        <div class="section-label">Propuesta de valor</div>
+        <h2 class="section-title">Un modelo único.<br><em>Ocho mercados.</em></h2>
+        <p class="section-body">Seleccionamos perros de protectora según su temperamento y carácter, sin discriminar por raza. Lo que antes era un coste para el sistema, se convierte en un activo profesional. Coste de adquisición: prácticamente cero. Valor de mercado formado: 8.000–25.000€.</p>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <div class="big-circle">
+          <div class="orbit-item">🛡️</div><div class="orbit-item">🔍</div><div class="orbit-item">🧠</div>
+          <div class="orbit-item">💊</div><div class="orbit-item">🚒</div><div class="orbit-item">⚖️</div>
+          <div class="circle-logo"><img src="imagenes/logok9integral1.PNG" alt="K9"></div>
+        </div>
+      </div>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card"><div class="service-icon">🛡️</div><div class="service-name">Seguridad privada</div><div class="service-desc">Vigilancia perimetral, control de accesos, eventos y transporte de valores con unidades certificadas.</div><span class="service-tag">B2B · Alto volumen</span></div>
+      <div class="service-card"><div class="service-icon">💜</div><div class="service-name">Violencia de género</div><div class="service-desc">Perros de acompañamiento y alerta para víctimas. Integrados en casas de acogida y programas de protección.</div><span class="service-tag">AAPP · Subvencionable</span></div>
+      <div class="service-card"><div class="service-icon">🏛️</div><div class="service-name">Reinserción penitenciaria</div><div class="service-desc">Internos adiestran perros bajo supervisión. Reduce reincidencia y costes del sistema.</div><span class="service-tag">SGIP · ESG</span></div>
+      <div class="service-card"><div class="service-icon">🧠</div><div class="service-name">Terapia asistida</div><div class="service-desc">Intervenciones en hospitales, residencias, salud mental y autismo. Reconocidas por Sanidad.</div><span class="service-tag">Sanidad · Educación</span></div>
+      <div class="service-card"><div class="service-icon">🚒</div><div class="service-name">Rescate y emergencias</div><div class="service-desc">Búsqueda de personas en catástrofes, avalanchas y derrumbes. Equipos para protección civil.</div><span class="service-tag">112 · Protección civil</span></div>
+      <div class="service-card"><div class="service-icon">💊</div><div class="service-name">Detección explosivos/drogas</div><div class="service-desc">Caninos especializados para aeropuertos, eventos, juzgados y centros penitenciarios.</div><span class="service-tag">Interior · Aduanas</span></div>
+      <div class="service-card"><div class="service-icon">👶</div><div class="service-name">Infancia y educación</div><div class="service-desc">Programas de lectura acompañada, habilidades sociales y educación emocional en colegios.</div><span class="service-tag">Educación pública</span></div>
+      <div class="service-card"><div class="service-icon">♿</div><div class="service-name">Perros de asistencia</div><div class="service-desc">Formación de perros guía, alertadores epilépticos y asistentes para movilidad reducida.</div><span class="service-tag">ONCE · CERMI</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOGS -->
+<section class="dogs-section" id="perros">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Nuestros perros en activo</div>
+      <h2 class="section-title">Cada perro, <em>una historia.</em></h2>
+      <p class="section-body">Seleccionados en protectoras por carácter, temperamento y capacidad de aprendizaje. Entrenados con refuerzo positivo hasta alcanzar el nivel profesional requerido en cada especialidad.</p>
+    </div>
+    <div class="dogs-grid reveal">
+      <div class="dog-card">
+        <img class="dog-img" src="imagenes/Thor.jpg" alt="Thor">
+        <div class="dog-info"><div class="dog-name">Thor</div><div class="dog-role">Unidad de seguridad</div><div class="dog-desc">Pastor mestizo rescatado en Granollers. Alta energía e impulso de presa controlado. Certificado para vigilancia perimetral y control de accesos.</div></div>
+      </div>
+      <div class="dog-card">
+        <img class="dog-img" src="imagenes/Luna.jpg" alt="Luna">
+        <div class="dog-info"><div class="dog-name">Luna</div><div class="dog-role">Terapia asistida</div><div class="dog-desc">Labrador cruzada de carácter tranquilo y empático. Trabaja en programas de salud mental y con pacientes oncológicos en residencias y hospitales.</div></div>
+      </div>
+      <div class="dog-card">
+        <img class="dog-img" src="imagenes/Rex.jpg" alt="Rex">
+        <div class="dog-info"><div class="dog-name">Rex</div><div class="dog-role">Detección de explosivos</div><div class="dog-desc">Malinois mestizo con olfato excepcional y alta motivación al trabajo. En formación avanzada para certificación EXDET en aeropuertos y eventos.</div></div>
+      </div>
+      <div class="dog-card">
+        <img class="dog-img" src="imagenes/Nala.jpg" alt="Nala">
+        <div class="dog-info"><div class="dog-name">Nala</div><div class="dog-role">Apoyo a víctimas de violencia de género</div><div class="dog-desc">Mezcla de razas medianas, presencia serena y vínculo rápido. Acompaña a mujeres en casas de acogida aportando calma y seguridad emocional.</div></div>
+      </div>
+      <div class="dog-card">
+        <img class="dog-img" src="imagenes/Bravo.jpg" alt="Bravo">
+        <div class="dog-info"><div class="dog-name">Bravo</div><div class="dog-role">Rescate y búsqueda</div><div class="dog-desc">Pointer cruzado con excelente rastreo en terreno accidentado. Integrado en protección civil. Certif. USAR nivel I para búsqueda en derrumbes.</div></div>
+      </div>
+      <div class="dog-card">
+        <img class="dog-img" src="imagenes/Cleo.jpg" alt="Cleo">
+        <div class="dog-info"><div class="dog-name">Cleo</div><div class="dog-role">Reinserción penitenciaria</div><div class="dog-desc">Beagle mestiza empleada en el programa con internos del Centro Penitenciario de Brians. Su entrenamiento lo realizan los propios reclusos bajo supervisión.</div></div>
+      </div>
+      <div class="dog-card">
+        <img class="dog-img" src="imagenes/Nico.jpg" alt="Nico">
+        <div class="dog-info"><div class="dog-name">Nico</div><div class="dog-role">Asistencia para discapacidad</div><div class="dog-desc">Golden mestizo entrenado para alertar ante crisis epilépticas. Alta sensibilidad y capacidad de anticipación de episodios. En activo con familia de Sabadell.</div></div>
+      </div>
+      <div class="dog-card">
+        <img class="dog-img" src="imagenes/Iris.jpg" alt="Iris">
+        <div class="dog-info"><div class="dog-name">Iris</div><div class="dog-role">Educación e infancia</div><div class="dog-desc">Mestiza sociable que participa en el programa "Leyendo con Iris" en 3 colegios de Granollers mejorando comprensión lectora y gestión emocional.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section" id="equipo">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">El equipo humano</div>
+      <h2 class="section-title">Profesionales que <em>marcan la diferencia.</em></h2>
+      <p class="section-body">Un equipo multidisciplinar formado por adiestradores certificados, etólogos y veterinarios especializados en bienestar animal. La combinación de rigor técnico y vocación es la base de nuestro método.</p>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card">
+        <img class="team-img" src="imagenes/Carlos_martinez.jpg" alt="Carlos Martínez">
+        <div class="team-info"><div class="team-name">Carlos Martínez</div><div class="team-role">Director técnico & Adiestrador jefe</div><div class="team-desc">15 años de experiencia en adiestramiento canino profesional. Ex-instructor en unidad K9 de Guardia Civil. Certificado por la IACP y especializado en selección por temperamento. Lidera el protocolo de evaluación de candidatos de protectora.</div></div>
+      </div>
+      <div class="team-card">
+        <img class="team-img" src="imagenes/Doctora_marta_soler.jpg" alt="Dra. Marta Soler">
+        <div class="team-info"><div class="team-name">Dra. Marta Soler</div><div class="team-role">Etóloga clínica</div><div class="team-desc">Doctora en Etología Animal por la UAB. Especialista en evaluación conductual y rehabilitación de perros con historial de abandono o maltrato. Diseña los protocolos de selección y garantiza el bienestar durante la formación.</div></div>
+      </div>
+      <div class="team-card">
+        <img class="team-img" src="imagenes/Jordi_Puig.jpg" alt="Dr. Jordi Puig">
+        <div class="team-info"><div class="team-name">Dr. Jordi Puig</div><div class="team-role">Veterinario responsable</div><div class="team-desc">Veterinario colegiado nº 3847. Especialización en medicina interna y bienestar animal. Supervisa el estado de salud de todas las unidades y el seguimiento veterinario continuo durante la vida operativa de cada perro.</div></div>
+      </div>
+      <div class="team-card">
+        <img class="team-img" src="imagenes/Ana_Roca.jpg" alt="Ana Roca">
+        <div class="team-info"><div class="team-name">Ana Roca</div><div class="team-role">Adiestradora — Terapia y Social</div><div class="team-desc">Psicóloga y adiestradora certificada en Intervención Asistida con Animales (IAHAIO). Lidera las líneas de terapia, infancia y apoyo a víctimas de violencia de género. Coordina los programas con hospitales y servicios sociales.</div></div>
+      </div>
+      <div class="team-card">
+        <img class="team-img" src="imagenes/Marc_Vidal.jpg" alt="Marc Vidal">
+        <div class="team-info"><div class="team-name">Marc Vidal</div><div class="team-role">Adiestrador — Seguridad y Detección</div><div class="team-desc">8 años en adiestramiento para seguridad privada y detección de sustancias. Certificado EXDET y formado en Israel en técnicas K9 de alto rendimiento. Responsable de las unidades de seguridad y explosivos.</div></div>
+      </div>
+      <div class="team-card">
+        <img class="team-img" src="imagenes/Laura_Fernandez.jpg" alt="Laura Fernández">
+        <div class="team-info"><div class="team-name">Laura Fernández</div><div class="team-role">Adiestradora — Rescate y Emergencias</div><div class="team-desc">Técnica de protección civil y adiestradora USAR. Coordina los programas de rescate con el 112 y equipos de protección civil de Barcelona. Certificación IRO (International Rescue Dog Organisation).</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAFO -->
+<section class="dafo-section" id="dafo">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Análisis estratégico</div>
+      <h2 class="section-title">DAFO — <em>Posición competitiva</em></h2>
+    </div>
+    <div class="dafo-grid reveal">
+      <div class="dafo-quadrant dq-fortalezas">
+        <div class="dq-label">Fortalezas</div><div class="dq-title">Ventajas internas</div>
+        <ul class="dq-items">
+          <li><strong>Protección de personas y rescate de perros callejeros</strong> como doble misión de valor</li>
+          <li><strong>No discriminación por raza:</strong> enfoque único en habilidades y temperamento</li>
+          <li><strong>Detección de capacidades ignoradas</strong> en perros descartados por el sistema</li>
+          <li><strong>Experiencia asesorando empresas</strong> del sector seguridad y bienestar</li>
+          <li><strong>Adiestramiento basado en refuerzos positivos</strong> avalado por etología clínica</li>
+          <li><strong>Servicios únicos:</strong> combinación de seguridad y apoyo terapéutico</li>
+        </ul>
+      </div>
+      <div class="dafo-quadrant dq-debilidades">
+        <div class="dq-label">Debilidades</div><div class="dq-title">Retos internos</div>
+        <ul class="dq-items">
+          <li><strong>Alta tasa de descarte de perros</strong> durante la fase de selección inicial</li>
+          <li><strong>Largos tiempos de rehabilitación y adaptación</strong> en animales con trauma previo</li>
+          <li><strong>Necesidad de equipos multidisciplinares variados:</strong> etólogos, adiestradores, veterinarios</li>
+          <li><strong>Altos costes de rehabilitación y adiestramiento</strong> antes de generar ingresos</li>
+          <li><strong>Riesgo elevado en la selección de perros</strong> con historial desconocido</li>
+          <li><strong>Credibilidad inicial débil</strong> ante clientes institucionales exigentes</li>
+        </ul>
+      </div>
+      <div class="dafo-quadrant dq-oportunidades">
+        <div class="dq-label">Oportunidades</div><div class="dq-title">Factores externos</div>
+        <ul class="dq-items">
+          <li><strong>Mayor conciencia sobre bienestar animal</strong> y adopción responsable en la sociedad</li>
+          <li><strong>Ventaja competitiva frente a empresas tradicionales</strong> de seguridad sin componente social</li>
+          <li><strong>Nicho poco explotado con perros mestizos</strong> en servicios profesionales</li>
+          <li><strong>Posibilidad de expansión a otros sectores</strong> y nuevas líneas de servicio</li>
+          <li><strong>Acceso a subvenciones</strong> con entidades públicas (Next Generation, FEDER)</li>
+          <li><strong>Potencial de alianzas con AAPP</strong> para programas de reinserción y protección</li>
+        </ul>
+      </div>
+      <div class="dafo-quadrant dq-amenazas">
+        <div class="dq-label">Amenazas</div><div class="dq-title">Factores adversos</div>
+        <ul class="dq-items">
+          <li><strong>Prejuicios hacia perros callejeros o mestizos</strong> en clientes del sector seguridad</li>
+          <li><strong>Posibles cambios legales restrictivos</strong> en el uso de animales en servicios</li>
+          <li><strong>Competencia consolidada</strong> en seguridad privada (Prosegur, Securitas, Seprotec)</li>
+          <li><strong>Desconfianza inicial del mercado</strong> hacia un modelo de negocio disruptivo</li>
+          <li><strong>Riesgo reputacional por fallos en servicios</strong> en contextos sensibles</li>
+          <li><strong>Necesidad de demostrar bienestar animal constantemente</strong> ante grupos activistas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODELO -->
+<section class="model-section" id="modelo">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Cómo generamos valor</div>
+      <h2 class="section-title">El modelo de <em>negocio</em></h2>
+      <p class="section-body">Tres fuentes de ingresos combinadas que se retroalimentan: cada perro formado financia al siguiente candidato rescatado.</p>
+    </div>
+    <div class="model-grid reveal">
+      <div class="model-card"><div class="model-num">01</div><div class="model-title">Venta / cesión de unidad formada</div><div class="model-text">Entregamos al cliente la unidad canina ya entrenada. Precio según especialización: 8.000€ (terapia) hasta 25.000€ (detección explosivos). Márgenes >60% gracias al coste cero del animal.</div></div>
+      <div class="model-card"><div class="model-num">02</div><div class="model-title">Servicio gestionado con contrato</div><div class="model-text">K9 provee la unidad + el guía + mantenimiento del adiestramiento bajo contrato. Ingresos recurrentes mensuales. Ideal para seguridad perimetral, hospitales y casas de acogida.</div></div>
+      <div class="model-card"><div class="model-num">03</div><div class="model-title">Programas institucionales y formación</div><div class="model-text">Proyectos de reinserción penitenciaria (SGIP). Cursos de adiestramiento certificado para terceros. Consulting para ayuntamientos que quieren montar su propia unidad canina.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIERO -->
+<section class="finance-section" id="financiero">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Proyección y ronda</div>
+      <h2 class="section-title">Plan <em>financiero</em></h2>
+    </div>
+    <div class="finance-grid reveal">
+      <div>
+        <table class="finance-table">
+          <thead><tr><th>Línea de servicio</th><th>Precio medio</th><th>Año 2</th></tr></thead>
+          <tbody>
+            <tr><td>Seguridad privada (servicio)</td><td>3.200€/mes</td><td>192.000€</td></tr>
+            <tr><td>Terapia asistida (cesión)</td><td>9.500€/unidad</td><td>95.000€</td></tr>
+            <tr><td>Detección (venta)</td><td>22.000€/unidad</td><td>110.000€</td></tr>
+            <tr><td>Violencia género (contrato)</td><td>2.400€/mes</td><td>86.400€</td></tr>
+            <tr><td>Programas reinserción</td><td>45.000€/proyecto</td><td>90.000€</td></tr>
+            <tr><td>Formación y consulting</td><td>—</td><td>40.000€</td></tr>
+            <tr><td colspan="2"><strong>Total proyectado año 2</strong></td><td><strong>613.400€</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;">Hoja de ruta</div>
+        <div class="milestones">
+          <div class="milestone"><div class="milestone-dot">1</div><div><div class="milestone-phase">Meses 1–6 · Lanzamiento</div><div class="milestone-text">Instalaciones y equipo fundador. Primeros 10 candidatos evaluados. Pilotos gratuitos con ayuntamiento y centro de salud mental.</div></div></div>
+          <div class="milestone"><div class="milestone-dot">2</div><div><div class="milestone-phase">Meses 7–18 · Tracción</div><div class="milestone-text">Primeros contratos facturados. Certificación como empresa de inserción. Solicitud fondos FEDER. 3 líneas activas.</div></div></div>
+          <div class="milestone"><div class="milestone-dot">3</div><div><div class="milestone-phase">Año 2–3 · Escala</div><div class="milestone-text">Segunda sede. 8 líneas operativas. Equipo de 12 personas. Inicio expansión a Portugal y Latinoamérica.</div></div></div>
+          <div class="milestone"><div class="milestone-dot">4</div><div><div class="milestone-phase">Año 4–5 · Liderazgo</div><div class="milestone-text">Referente nacional. Posible salida industrial o fusión con operador de seguridad.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Voz de nuestros clientes</div>
+      <h2 class="section-title">Lo que dicen de <em>nosotros</em></h2>
+      <p class="section-body">La confianza de nuestros clientes es el mejor aval. Estas son algunas de las valoraciones de instituciones y empresas que ya trabajan con K9 Integral Services.</p>
+    </div>
+    <div class="reviews-grid reveal">
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="review-text">"Desde que integramos la unidad canina de K9 en nuestro centro de acogida, las mujeres usuarias han manifestado una mejora notable en su sensación de seguridad y bienestar emocional. El vínculo que se genera es inmediato y genuino."</p>
+        <div class="review-author">
+          <span class="review-name">Marta Iglesias</span>
+          <span class="review-org">Directora, Casa de Acogida Llar Digna — Barcelona</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="review-text">"El rigor técnico del equipo de K9 nos sorprendió gratamente. Los perros procedentes de protectora rinden exactamente igual que los de criadero especializado, pero con un plus de resiliencia y carácter que se nota en el trabajo diario."</p>
+        <div class="review-author">
+          <span class="review-name">Jordi Oller</span>
+          <span class="review-org">Jefe de Seguridad, Grup Hospitalari Sant Joan de Déu</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="review-text">"El programa de reinserción con K9 ha transformado la dinámica del módulo. Los internos que participan en el adiestramiento muestran mayor responsabilidad, empatía y motivación. Los resultados han superado todas nuestras expectativas."</p>
+        <div class="review-author">
+          <span class="review-name">Francesc Mas</span>
+          <span class="review-org">Subdirector de Tratamiento, CP Brians 2 — Martorell</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="review-text">"Luna ha cambiado la vida de nuestra unidad de geriatría. Los pacientes con deterioro cognitivo se activan cuando ella llega. Es la primera vez en años que veo a algunos de ellos sonreír de esa manera. Renovamos sin dudarlo."</p>
+        <div class="review-author">
+          <span class="review-name">Dra. Pilar Sousa</span>
+          <span class="review-org">Directora médica, Residència Gent Gran Montjuïc</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="review-text">"Llevamos dos años con Thor en nuestra planta industrial y el resultado es impecable. Nivel de alerta, obediencia y comportamiento con el personal impecables. Además, el componente de adopción responsable ha reforzado nuestra imagen de RSC."</p>
+        <div class="review-author">
+          <span class="review-name">Andreu Puigdomènech</span>
+          <span class="review-org">Director de Operaciones, Logística Torres S.L.</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="review-text">"Los niños del colegio esperan el día que viene Iris como si fuera una fiesta. La mejora en la comprensión lectora ha sido medible ya en el primer trimestre, pero lo que más nos ha sorprendido es el impacto en los alumnos con dificultades socioemocionales."</p>
+        <div class="review-author">
+          <span class="review-name">Gemma Carbonell</span>
+          <span class="review-org">Directora pedagógica, CEIP Les Fonts — Granollers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLABORADORES -->
+<section class="partners-section" id="colaboradores">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Red de alianzas</div>
+      <h2 class="section-title">Entidades <em>colaboradoras</em></h2>
+      <p class="section-body">Trabajamos mano a mano con protectoras, centros de adiestramiento, universidades y administraciones públicas que comparten nuestra visión.</p>
+    </div>
+    <div class="partners-grid-top reveal">
+      <div class="partner-card">
+        <div class="partner-logo-wrap"><img src="imagenes/Sircan_logo.jpg" alt="Sircan"></div>
+        <div class="partner-name">Sircan</div>
+        <div class="partner-desc">Centro de adiestramiento canino de referencia. Colabora en la formación técnica avanzada de nuestras unidades y en la certificación de adiestradores.</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo-wrap"><img src="imagenes/apag_logo.jpg" alt="APAG Protectora Granollers"></div>
+        <div class="partner-name">APAG — Protectora Granollers</div>
+        <div class="partner-desc">Associació Protectora d'Animals de Granollers. Principal fuente de candidatos caninos. Nos cede animales evaluados para su transformación en unidades profesionales.</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo-text"><div class="shield">🏛️</div><div class="city">Ajuntament de Barcelona</div></div>
+        <div class="partner-name">Ajuntament de Barcelona</div>
+        <div class="partner-desc">Colaboración en programas de violencia de género, infancia en riesgo y reinserción. Aval institucional clave para el acceso a fondos públicos y licitaciones.</div>
+      </div>
+    </div>
+    <div class="partners-grid reveal">
+      <div class="partner-card">
+        <div class="partner-logo-wrap"><img src="imagenes/logo_uab.jpg" alt="UAB" class="keep-color"></div>
+        <div class="partner-name">Universitat Autònoma de Barcelona</div>
+        <div class="partner-desc">Colaboración académica en investigación sobre bienestar animal y etología aplicada. La UAB respalda científicamente nuestros protocolos de selección y formación canina.</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo-wrap"><img src="imagenes/Prevencion_y_seguridad_logo.jpg" alt="EPSI FUAB"></div>
+        <div class="partner-name">EPSI — Escola de Prevenció i Seguretat Integral FUAB</div>
+        <div class="partner-desc">Escuela de referencia en seguridad y emergencias. Nos avala en la formación de guías caninos certificados y en la homologación de nuestros programas de detección y rescate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contacto">
+  <div class="cta-logo"><img src="imagenes/logok9integral1.PNG" alt="K9 Integral Services"></div>
+  <h2 class="cta-title">Una inversión con<br><span>propósito y retorno</span></h2>
+  <p class="cta-sub">Buscamos inversores comprometidos con el impacto social y la rentabilidad sostenible. Ronda seed abierta — acceso a deck completo con modelo financiero detallado.</p>
+  <div class="cta-badge">Solicitar información de inversión</div>
+  <div style="margin-top:1.5rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--gold3);position:relative;z-index:2;">Huellas que protegen</div>
+  <div style="margin-top:0.75rem;font-size:0.72rem;letter-spacing:0.15em;color:var(--muted);position:relative;z-index:2;">K9 INTEGRAL SERVICES · CONFIDENCIAL · 2025</div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
